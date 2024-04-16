@@ -13,10 +13,14 @@ var fileString = []byte(``)
 var outputFile *os.File
 
 func VisitNode(node *sitter.Node, depth int) {
+	for i := 0; i < int(node.ChildCount()); i++ {
+		child_node := node.Child(i)
+		VisitNode(child_node, depth+1)
+	}
 
 }
 
-func main(){
+func main() {
 	// reading data
 	fname := os.Args[1] // cmd1: filepath
 	readData, err := os.ReadFile(fname)
@@ -40,6 +44,5 @@ func main(){
 		log.Fatal(err)
 	}
 	VisitNode(rootNode, 0)
-
 
 }
