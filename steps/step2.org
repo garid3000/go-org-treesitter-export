@@ -1,0 +1,36 @@
+#+title: Step2.org: Emphasis and Monospace
+
+Small text on the beginning of the file.
+Compared to the Previous ~step1.org~,
+this step will contain more harder list of sections.
+As well as, *bold*, /italics/, ~code~, =verbatim=, +strike though+, _underline_.
+
+
+* Chapter 1
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+Nam consequat rhoncus ex at varius. Etiam lacinia ex nisl,
+
+** Bold
+
+To use *bold*, word should be surrounded by * (star).
+
+** Italics
+
+To use /italics/, word should be surrounded by / (slash).
+
+** code
+
+To use ~code~, word should be surrounded by ~ (tilde).
+
+** verbatim
+
+To use =verbatim=, (which is AFAIK almost identical with code) word should be surrounded by = (equal sign)
+
+** strike through
+
+To use +strike though+, word should be surrounded by + (plus sing).
+
+** underline
+
+To use _underline_, word should be surrounded by _ (underscore).
