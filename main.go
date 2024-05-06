@@ -51,7 +51,7 @@ func VisitNode(node *sitter.Node, depth int, outputfile *os.File) {
 			fmt.Sprintf(
 				"<h%d id=\"%s\">",
 				depth-1, slice_of_int_to_hash_string(treeNodeId, depth-1),
-				// depth should section's which is parent of headline?
+				// depth should be depth-of-section which is parent of headline
 			),
 		)
 	case "section":
@@ -66,10 +66,10 @@ func VisitNode(node *sitter.Node, depth int, outputfile *os.File) {
 		outputfile.WriteString(
 			fmt.Sprintf(
 				"<span class=\"section-number-%d\">%s ",
-				// depth is depth section which is grandparent of stars
-				// section -> headline -> stars
 				depth-2,
 				slice_of_int_to_string(treeNodeId, depth-2),
+				// depth is depth-of-section which is grandparent of stars
+				// section -> headline -> stars
 			),
 		)
 
@@ -97,40 +97,28 @@ func VisitNode(node *sitter.Node, depth int, outputfile *os.File) {
 	default:
 	}
 
+	//visit the child-nodes
 	for i := 0; i < int(node.ChildCount()); i++ {
-		//treeNodeId[len(treeNodeId)-1] = i
 		treeNodeId[depth] = i
 		treeNodeId[depth+1] = 0
 		child_node := node.Child(i)
 		VisitNode(child_node, depth+1, outputfile)
 	}
-	// treeNodeId = treeNodeId[0 : len(treeNodeId)-1]
 
 	switch node.Type() {
 	case "headline":
-		outputfile.WriteString(
-			fmt.Sprintf("</h%d>", depth),
-		)
+		outputfile.WriteString(fmt.Sprintf("</h%d>", depth-1))
+		// also depth of section;  section -> headline
 	case "section":
-		outputfile.WriteString(
-			fmt.Sprintf("</div>"),
-		)
-
+		outputfile.WriteString("</div>")
 	case "item":
 		outputfile.WriteString("")
 	case "stars":
-		outputfile.WriteString(
-			fmt.Sprintf("</span>"),
-		)
+		outputfile.WriteString("</span>")
 	case "body":
-		outputfile.WriteString(
-			fmt.Sprintf("</div>"),
-		)
+		outputfile.WriteString("</div>")
 	case "paragraph":
-		outputfile.WriteString(
-			fmt.Sprintf("</p>"),
-		)
-
+		outputfile.WriteString("</p>")
 	default:
 	}
 
